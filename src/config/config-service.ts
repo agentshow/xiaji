@@ -1,9 +1,9 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
-import { XjConfig, PlatformSource } from '../types/index';
-import { Logger } from '../utils/logger';
-import { encrypt, decrypt } from '../utils/crypto';
+import { XjConfig, PlatformSource } from '../types/index.js';
+import { Logger } from '../utils/logger.js';
+import { encrypt, decrypt } from '../utils/crypto.js';
 
 const DEFAULT_CONFIG: XjConfig = {
   version: '1.0',

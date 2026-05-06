@@ -2,14 +2,14 @@
 import { Command } from 'commander';
 import * as path from 'node:path';
 import * as os from 'node:os';
-import { Logger, LogLevel } from '../utils/logger';
-import { ConfigService } from '../config/config-service';
-import { StorageService } from '../storage/storage';
-import { AiService } from '../ai/ai-service';
-import { MemoryService } from '../memory/memory-service';
-import { FeishuCollector } from '../collectors/feishu/feishu-collector';
-import { Scheduler } from '../scheduler/scheduler';
-import { McpServer } from '../mcp/mcp-server';
+import { Logger, LogLevel } from '../utils/logger.js';
+import { ConfigService } from '../config/config-service.js';
+import { StorageService } from '../storage/storage.js';
+import { AiService } from '../ai/ai-service.js';
+import { MemoryService } from '../memory/memory-service.js';
+import { FeishuCollector } from '../collectors/feishu/feishu-collector.js';
+import { Scheduler } from '../scheduler/scheduler.js';
+import { McpServer } from '../mcp/mcp-server.js';
 
 const program = new Command();
 

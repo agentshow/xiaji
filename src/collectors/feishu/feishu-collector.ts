@@ -1,6 +1,6 @@
-import { MemoryItem, PlatformSource } from '../../types/index';
-import { Logger } from '../../utils/logger';
-import { AiService } from '../../ai/ai-service';
+import { MemoryItem, PlatformSource } from '../../types/index.js';
+import { Logger } from '../../utils/logger.js';
+import { AiService } from '../../ai/ai-service.js';
 
 export interface FeishuCollectorConfig {
   appId: string;

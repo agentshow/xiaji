@@ -1,7 +1,7 @@
 import * as cron from 'node-cron';
-import { MemoryService } from '../memory/memory-service';
-import { ConfigService } from '../config/config-service';
-import { Logger } from '../utils/logger';
+import { MemoryService } from '../memory/memory-service.js';
+import { ConfigService } from '../config/config-service.js';
+import { Logger } from '../utils/logger.js';
 
 export class Scheduler {
   private memoryService: MemoryService;

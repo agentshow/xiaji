@@ -4,9 +4,9 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { MemoryService } from '../memory/memory-service';
-import { PlatformSource } from '../types/index';
-import { Logger } from '../utils/logger';
+import { MemoryService } from '../memory/memory-service.js';
+import { PlatformSource } from '../types/index.js';
+import { Logger } from '../utils/logger.js';
 
 export class McpServer {
   private server: Server;

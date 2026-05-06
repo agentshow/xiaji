@@ -1,10 +1,10 @@
-import { MemoryItem, SyncOutput, SyncError, QueryOutput, AddOutput, ListOutput, PlatformSource } from '../types/index';
-import { StorageService } from '../storage/storage';
-import { ConfigService } from '../config/config-service';
-import { FeishuCollector } from '../collectors/feishu/feishu-collector';
-import { AiService } from '../ai/ai-service';
-import { Logger } from '../utils/logger';
-import { generateId } from '../utils/crypto';
+import { MemoryItem, SyncOutput, SyncError, QueryOutput, AddOutput, ListOutput, PlatformSource } from '../types/index.js';
+import { StorageService } from '../storage/storage.js';
+import { ConfigService } from '../config/config-service.js';
+import { FeishuCollector } from '../collectors/feishu/feishu-collector.js';
+import { AiService } from '../ai/ai-service.js';
+import { Logger } from '../utils/logger.js';
+import { generateId } from '../utils/crypto.js';
 
 export class MemoryService {
   private storage: StorageService;

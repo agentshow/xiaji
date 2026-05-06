@@ -1,8 +1,8 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { MemoryItem, MemorySummary, PlatformSource } from '../types/index';
-import { Logger } from '../utils/logger';
-import { getTimePath, getDateFileName, parseDate } from '../utils/date';
+import { MemoryItem, MemorySummary, PlatformSource } from '../types/index.js';
+import { Logger } from '../utils/logger.js';
+import { getTimePath, getDateFileName, parseDate } from '../utils/date.js';
 
 export class StorageService {
   private basePath: string;

@@ -1,6 +1,6 @@
 import * as http from 'node:http';
 import * as url from 'node:url';
-import { Logger } from '../utils/logger';
+import { Logger } from '../utils/logger.js';
 
 export interface OAuthConfig {
   clientId: string;
