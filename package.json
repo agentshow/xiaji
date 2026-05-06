@@ -1,0 +1,42 @@
+{
+  "name": "xiaji",
+  "version": "0.1.0",
+  "description": "虾记 - 个人记忆索引工具",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "xj": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src/ tests/",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["memory", "index", "personal", "mcp", "cli"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.0.0",
+    "commander": "12.0.0",
+    "node-cron": "3.0.0",
+    "yaml": "2.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.0.0",
+    "typescript": "5.4.5",
+    "vitest": "1.6.0",
+    "eslint": "8.57.0",
+    "@typescript-eslint/parser": "7.0.0",
+    "prettier": "3.2.0"
+  }
+}
