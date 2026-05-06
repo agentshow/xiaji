@@ -1,6 +1,6 @@
 {
   "name": "xiaji",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "虾记 - 个人记忆索引工具 | AI-powered personal memory indexing tool",
   "main": "dist/index.js",
   "type": "module",
