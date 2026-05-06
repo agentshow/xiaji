@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "type": "module",
   "bin": {
-    "xj": "./dist/cli/index.js"
+    "xj": "dist/cli/index.js"
   },
   "files": [
     "dist/",
