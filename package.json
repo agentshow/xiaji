@@ -1,12 +1,17 @@
 {
   "name": "xiaji",
   "version": "0.1.0",
-  "description": "虾记 - 个人记忆索引工具",
+  "description": "虾记 - 个人记忆索引工具 | AI-powered personal memory indexing tool",
   "main": "dist/index.js",
   "type": "module",
   "bin": {
     "xj": "./dist/cli/index.js"
   },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -20,8 +25,27 @@
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["memory", "index", "personal", "mcp", "cli"],
+  "keywords": [
+    "memory",
+    "index",
+    "personal",
+    "mcp",
+    "cli",
+    "xiaji",
+    "feishu",
+    "ai",
+    "productivity"
+  ],
+  "author": "Alisa Github <forrestyue@126.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agentshow/xiaji.git"
+  },
+  "bugs": {
+    "url": "https://github.com/agentshow/xiaji/issues"
+  },
+  "homepage": "https://github.com/agentshow/xiaji#readme",
   "engines": {
     "node": ">=18.0.0"
   },

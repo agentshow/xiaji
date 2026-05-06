@@ -1,0 +1,11 @@
+src/
+tests/
+.github/
+.vscode/
+*.ts
+!*.d.ts
+tsconfig.json
+vitest.config.ts
+.npmrc
+.gitignore
+node_modules/
