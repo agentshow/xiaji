@@ -1,9 +1,13 @@
 # 虾记 (Xiaoji)
 
-> 极轻量跨平台个人记忆索引工具 | Cross-platform Memory Indexing Tool
+> 极轻量跨平台个人记忆索引工具 | Lightweight Cross-platform Memory Indexing Tool
 
-[![npm version](https://img.shields.io/npm/v/xiaji.svg)](https://www.npmjs.com/package/xiaji)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/npm/v/xiaji?color=black)](https://www.npmjs.com/package/xiaji)
+[![npm downloads](https://img.shields.io/npm/dm/xiaji?color=black)](https://www.npmjs.com/package/xiaji)
+[![License: MIT](https://img.shields.io/badge/License-MIT-black)](https://opensource.org/licenses/MIT)
+[![CI](https://img.shields.io/github/actions/workflow/status/agentshow/xiaji/ci.yml?branch=main&color=black)](https://github.com/agentshow/xiaji/actions)
+[![Node](https://img.shields.io/badge/node-%3E%3D18-black)](https://nodejs.org)
+[![MCP](https://img.shields.io/badge/MCP-Protocol-black)](https://modelcontextprotocol.io)
 
 虾记是一个基于 MCP (Model Context Protocol) 协议的极轻量个人记忆索引工具，帮助用户自动采集、存储和检索跨平台的数字记忆目录。
 
@@ -158,6 +162,40 @@ npm install
 npm run build
 npm test
 ```
+
+## 架构概览
+
+```
+┌─────────────────────────────────────────────────┐
+│                   AI Agent                       │
+│         (Trae / Cursor / Claude Code)            │
+└─────────────────────┬───────────────────────────┘
+                      │ MCP Protocol
+┌─────────────────────▼───────────────────────────┐
+│              xiaji MCP Server                     │
+│    ┌──────────┬──────────┬──────────────────┐    │
+│    │  query   │   add    │      sync        │    │
+│    └──────────┴──────────┴──────────────────┘    │
+└─────────────────────┬───────────────────────────┘
+                      │
+┌─────────────────────▼───────────────────────────┐
+│              Memory Service                       │
+│    ┌──────────────────────────────────────┐      │
+│    │  存储层：~/.xiaji/                     │      │
+│    │  by-platform/  by-time/  by-tag/      │      │
+│    │  (仅标题 + 链接 + 时间 + 标签)          │      │
+│    └──────────────────────────────────────┘      │
+└─────────────────────────────────────────────────┘
+```
+
+## 路线图
+
+| 版本 | 内容 | 状态 |
+|------|------|------|
+| v0.1.x | 核心 CLI + MCP Server + 飞书采集 | ✅ 已完成 |
+| v0.2.x | 飞书 Bot 集成 + 钉钉采集 | 🚧 开发中 |
+| v0.3.x | 企业微信 + Notion 采集 | 📋 计划中 |
+| v1.0.0 | 多平台 Bot 全量覆盖 + 插件系统 | 🎯 目标 |
 
 ## License
 
