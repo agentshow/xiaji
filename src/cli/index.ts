@@ -5,7 +5,6 @@ import * as os from 'node:os';
 import { Logger, LogLevel } from '../utils/logger.js';
 import { ConfigService } from '../config/config-service.js';
 import { StorageService } from '../storage/storage.js';
-import { AiService } from '../ai/ai-service.js';
 import { MemoryService } from '../memory/memory-service.js';
 import { FeishuCollector } from '../collectors/feishu/feishu-collector.js';
 import { Scheduler } from '../scheduler/scheduler.js';
@@ -27,17 +26,16 @@ function createServices() {
   const config = new ConfigService(configPath, logger);
   const storagePath = config.getStoragePath();
   const storage = new StorageService(storagePath, logger);
-  const aiService = new AiService(logger, { apiKey: config.get().apiKey });
   const feishuToken = config.getPlatformToken('feishu');
   let feishuCollector: FeishuCollector | null = null;
   if (feishuToken) {
-    feishuCollector = new FeishuCollector(logger, aiService, {
+    feishuCollector = new FeishuCollector(logger, {
       appId: config.get().platforms.feishu?.app_id || '',
       appSecret: feishuToken,
     });
   }
-  const memoryService = new MemoryService(storage, config, aiService, logger, feishuCollector);
-  return { logger, config, storage, aiService, memoryService, feishuCollector };
+  const memoryService = new MemoryService(storage, config, logger, feishuCollector);
+  return { logger, config, storage, memoryService, feishuCollector };
 }
 
 program
@@ -122,9 +120,6 @@ program
         if (key === 'storage.path') {
           config.setStoragePath(value);
           console.log(`Storage path set to: ${value}`);
-        } else if (key === 'apiKey') {
-          config.setApiKey(value);
-          console.log('API key set');
         } else {
           console.log(`Unknown config key: ${key}`);
         }

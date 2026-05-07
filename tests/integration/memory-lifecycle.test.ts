@@ -5,14 +5,12 @@ import * as os from 'node:os';
 import { MemoryService } from '../../src/memory/memory-service';
 import { StorageService } from '../../src/storage/storage';
 import { ConfigService } from '../../src/config/config-service';
-import { AiService } from '../../src/ai/ai-service';
 import { Logger, LogLevel } from '../../src/utils/logger';
 
 describe('Integration: MemoryService + Storage + Config', () => {
   let memoryService: MemoryService;
   let storage: StorageService;
   let config: ConfigService;
-  let aiService: AiService;
   let logger: Logger;
   let tmpDir: string;
   let configPath: string;
@@ -25,10 +23,7 @@ describe('Integration: MemoryService + Storage + Config', () => {
     config.init();
     config.setStoragePath(tmpDir);
     storage = new StorageService(tmpDir, logger);
-    aiService = new AiService(logger, { apiKey: '' });
-    vi.spyOn(aiService, 'generateTitle').mockImplementation(async (c: string) => c.slice(0, 30));
-    vi.spyOn(aiService, 'summarize').mockImplementation(async (c: string) => `摘要: ${c.slice(0, 50)}`);
-    memoryService = new MemoryService(storage, config, aiService, logger);
+    memoryService = new MemoryService(storage, config, logger);
   });
 
   afterEach(() => {
@@ -113,15 +108,6 @@ describe('Integration: MemoryService + Storage + Config', () => {
   });
 
   describe('配置层验证', () => {
-    it('配置应正确持久化', () => {
-      config.setApiKey('test-key');
-      const cfg = config.get();
-      expect(cfg.apiKey).toBe('test-key');
-      const rawContent = fs.readFileSync(configPath, 'utf-8');
-      const parsed = JSON.parse(rawContent);
-      expect(parsed.apiKey).toBe('test-key');
-    });
-
     it('Token 应加密存储', () => {
       config.setPlatformToken('feishu', 'secret-token-123');
       const rawContent = fs.readFileSync(configPath, 'utf-8');

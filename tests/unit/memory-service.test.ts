@@ -5,14 +5,12 @@ import * as os from 'node:os';
 import { MemoryService } from '../../src/memory/memory-service';
 import { StorageService } from '../../src/storage/storage';
 import { ConfigService } from '../../src/config/config-service';
-import { AiService } from '../../src/ai/ai-service';
 import { Logger, LogLevel } from '../../src/utils/logger';
 
 describe('MemoryService', () => {
   let memoryService: MemoryService;
   let storage: StorageService;
   let config: ConfigService;
-  let aiService: AiService;
   let logger: Logger;
   let tmpDir: string;
   let configPath: string;
@@ -25,10 +23,7 @@ describe('MemoryService', () => {
     config.init();
     config.setStoragePath(tmpDir);
     storage = new StorageService(tmpDir, logger);
-    aiService = new AiService(logger, { apiKey: '' });
-    vi.spyOn(aiService, 'generateTitle').mockImplementation(async (content: string) => content.slice(0, 30));
-    vi.spyOn(aiService, 'summarize').mockImplementation(async (content: string) => `摘要: ${content.slice(0, 50)}`);
-    memoryService = new MemoryService(storage, config, aiService, logger);
+    memoryService = new MemoryService(storage, config, logger);
   });
 
   afterEach(() => {

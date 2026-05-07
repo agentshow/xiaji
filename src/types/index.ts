@@ -138,7 +138,6 @@ export interface XjConfig {
     app_id?: string;
     token?: string;
   }>;
-  apiKey: string;
   lastSync: string;
 }
 

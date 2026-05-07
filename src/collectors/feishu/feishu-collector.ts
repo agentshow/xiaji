@@ -1,6 +1,5 @@
 import { MemoryItem, PlatformSource } from '../../types/index.js';
 import { Logger } from '../../utils/logger.js';
-import { AiService } from '../../ai/ai-service.js';
 
 export interface FeishuCollectorConfig {
   appId: string;
@@ -31,12 +30,10 @@ interface FeishuCalendarItem {
 
 export class FeishuCollector {
   private logger: Logger;
-  private aiService: AiService;
   private config: FeishuCollectorConfig;
 
-  constructor(logger: Logger, aiService: AiService, config: FeishuCollectorConfig) {
+  constructor(logger: Logger, config: FeishuCollectorConfig) {
     this.logger = logger;
-    this.aiService = aiService;
     this.config = config;
   }
 
@@ -47,7 +44,6 @@ export class FeishuCollector {
       const docs = await this.fetchDocs(token, _since);
       const items: MemoryItem[] = [];
       for (const doc of docs) {
-        const summary = await this.aiService.summarize(doc.title);
         const now = new Date().toISOString();
         items.push({
           id: `xiaji-${doc.document_id.slice(0, 10)}`,
@@ -56,7 +52,7 @@ export class FeishuCollector {
           time: doc.modified_time,
           platform: '飞书文档',
           title: doc.title,
-          summary,
+          summary: null,
           tags: ['feishu', 'doc'],
           created_at: now,
           updated_at: now,
@@ -77,7 +73,6 @@ export class FeishuCollector {
       const minutes = await this.fetchMinutes(token, _since);
       const items: MemoryItem[] = [];
       for (const m of minutes) {
-        const summary = await this.aiService.summarize(m.subject);
         const now = new Date().toISOString();
         items.push({
           id: `xiaji-${m.meeting_id.slice(0, 10)}`,
@@ -86,7 +81,7 @@ export class FeishuCollector {
           time: m.meeting_start_time,
           platform: '飞书妙记',
           title: m.subject,
-          summary,
+          summary: null,
           tags: ['feishu', 'meeting'],
           created_at: now,
           updated_at: now,
@@ -107,7 +102,6 @@ export class FeishuCollector {
       const events = await this.fetchCalendar(token, _since);
       const items: MemoryItem[] = [];
       for (const e of events) {
-        const summary = await this.aiService.summarize(e.summary);
         const now = new Date().toISOString();
         items.push({
           id: `xiaji-${e.event_id.slice(0, 10)}`,
@@ -116,7 +110,7 @@ export class FeishuCollector {
           time: e.start_time,
           platform: '飞书日历',
           title: e.summary,
-          summary,
+          summary: null,
           tags: ['feishu', 'calendar'],
           created_at: now,
           updated_at: now,

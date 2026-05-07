@@ -1,7 +1,7 @@
 {
   "name": "xiaji",
   "version": "0.1.2",
-  "description": "虾记 - 个人记忆索引工具 | AI-powered personal memory indexing tool",
+  "description": "虾记 - 极轻量跨平台个人记忆索引工具 | Lightweight cross-platform memory indexing tool based on MCP protocol",
   "main": "dist/index.js",
   "type": "module",
   "bin": {
@@ -26,15 +26,15 @@
     "prepublishOnly": "npm run build"
   },
   "keywords": [
-    "memory",
-    "index",
-    "personal",
-    "mcp",
-    "cli",
     "xiaji",
+    "memory-index",
+    "mcp-protocol",
+    "cli",
     "feishu",
-    "ai",
-    "productivity"
+    "ai-agent",
+    "nodejs",
+    "productivity",
+    "cross-platform"
   ],
   "author": "Alisa Github <forrestyue@126.com>",
   "license": "MIT",

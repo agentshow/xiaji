@@ -2,7 +2,6 @@ import { MemoryItem, SyncOutput, SyncError, QueryOutput, AddOutput, ListOutput, 
 import { StorageService } from '../storage/storage.js';
 import { ConfigService } from '../config/config-service.js';
 import { FeishuCollector } from '../collectors/feishu/feishu-collector.js';
-import { AiService } from '../ai/ai-service.js';
 import { Logger } from '../utils/logger.js';
 import { generateId } from '../utils/crypto.js';
 
@@ -10,19 +9,16 @@ export class MemoryService {
   private storage: StorageService;
   private config: ConfigService;
   private feishuCollector: FeishuCollector | null;
-  private aiService: AiService;
   private logger: Logger;
 
   constructor(
     storage: StorageService,
     config: ConfigService,
-    aiService: AiService,
     logger: Logger,
     feishuCollector: FeishuCollector | null = null,
   ) {
     this.storage = storage;
     this.config = config;
-    this.aiService = aiService;
     this.logger = logger;
     this.feishuCollector = feishuCollector;
   }
@@ -109,16 +105,14 @@ export class MemoryService {
     }
     const now = new Date().toISOString();
     const id = generateId();
-    const title = await this.aiService.generateTitle(content);
-    const summary = await this.aiService.summarize(content);
     const item: MemoryItem = {
       id,
       source: 'manual' as PlatformSource,
       url: '',
       time: options.time || now,
       platform: options.platform || 'manual',
-      title,
-      summary,
+      title: content.trim(),
+      summary: null,
       tags: options.tags || [],
       created_at: now,
       updated_at: now,

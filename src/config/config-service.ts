@@ -20,7 +20,6 @@ const DEFAULT_CONFIG: XjConfig = {
     platforms: ['feishu-doc', 'feishu-minutes', 'feishu-calendar'],
   },
   platforms: {},
-  apiKey: '',
   lastSync: '',
 };
 
@@ -86,7 +85,7 @@ export class ConfigService {
     const p = this.config.platforms[platform];
     if (!p?.token) return undefined;
     try {
-      return decrypt(p.token, this.config.apiKey || 'xiaji-default-key');
+      return decrypt(p.token, 'xiaji-default-key');
     } catch {
       return undefined;
     }
@@ -96,14 +95,9 @@ export class ConfigService {
     if (!this.config.platforms[platform]) {
       this.config.platforms[platform] = { enabled: true };
     }
-    const encrypted = encrypt(token, this.config.apiKey || 'xiaji-default-key');
+    const encrypted = encrypt(token, 'xiaji-default-key');
     this.config.platforms[platform].token = encrypted;
     this.config.platforms[platform].enabled = true;
-    this.save();
-  }
-
-  setApiKey(key: string): void {
-    this.config.apiKey = key;
     this.save();
   }
 

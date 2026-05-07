@@ -62,7 +62,6 @@ describe('ConfigService', () => {
   describe('platform token management', () => {
     it('should set and get platform token', () => {
       config.init();
-      config.setApiKey('test-key-123');
       config.setPlatformToken('feishu', 'test-token');
       const token = config.getPlatformToken('feishu');
       expect(token).toBe('test-token');
