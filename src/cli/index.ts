@@ -15,7 +15,7 @@ const program = new Command();
 program
   .name('xj')
   .description('虾记 - 个人记忆索引工具')
-  .version('0.1.0');
+  .version('0.2.1');
 
 const configDir = path.join(os.homedir(), '.xiaji');
 const logDir = path.join(configDir, 'logs');
