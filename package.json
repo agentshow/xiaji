@@ -1,6 +1,6 @@
 {
   "name": "xiaji",
-  "version": "0.2.1",
+  "version": "0.2.6",
   "description": "虾记 - 极轻量跨平台个人记忆索引工具 | Lightweight cross-platform memory indexing tool based on MCP protocol",
   "main": "dist/index.js",
   "type": "module",
