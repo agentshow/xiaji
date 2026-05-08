@@ -101,8 +101,8 @@ export type ErrorCode =
   | 'SYNC_PLATFORM_FAILED'
   | 'SYNC_TOKEN_EXPIRED'
   | 'AUTH_ERROR'
-  | 'OAUTH_TOKEN_NOT_FOUND'
-  | 'OAUTH_FAILED'
+  | 'AILY_AGENT_NOT_FOUND'
+  | 'AILY_AUTH_FAILED'
   | 'QUERY_NO_RESULT'
   | 'QUERY_INVALID_TIME_RANGE'
   | 'ADD_FAILED'
@@ -135,8 +135,7 @@ export interface XjConfig {
   };
   platforms: Record<string, {
     enabled: boolean;
-    app_id?: string;
-    token?: string;
+    aily_agent_id?: string;
   }>;
   lastSync: string;
 }

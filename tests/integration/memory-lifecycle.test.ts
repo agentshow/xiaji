@@ -108,11 +108,11 @@ describe('Integration: MemoryService + Storage + Config', () => {
   });
 
   describe('配置层验证', () => {
-    it('Token 应加密存储', () => {
-      config.setPlatformToken('feishu', 'secret-token-123');
+    it('Aily agent ID 应正确存储', () => {
+      config.setAilyAgentId('feishu', 'agent_test_456');
       const rawContent = fs.readFileSync(configPath, 'utf-8');
       const parsed = JSON.parse(rawContent);
-      expect(parsed.platforms.feishu.token).not.toBe('secret-token-123');
+      expect(parsed.platforms.feishu.aily_agent_id).toBe('agent_test_456');
     });
   });
 });

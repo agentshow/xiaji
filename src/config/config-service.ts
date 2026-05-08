@@ -3,7 +3,6 @@ import * as path from 'node:path';
 import * as os from 'node:os';
 import { XjConfig, PlatformSource } from '../types/index.js';
 import { Logger } from '../utils/logger.js';
-import { encrypt, decrypt } from '../utils/crypto.js';
 
 const DEFAULT_CONFIG: XjConfig = {
   version: '1.0',
@@ -81,22 +80,15 @@ export class ConfigService {
     return this.config.platforms[platform]?.enabled ?? false;
   }
 
-  getPlatformToken(platform: string): string | undefined {
-    const p = this.config.platforms[platform];
-    if (!p?.token) return undefined;
-    try {
-      return decrypt(p.token, 'xiaji-default-key');
-    } catch {
-      return undefined;
-    }
+  getAilyAgentId(platform: string): string | undefined {
+    return this.config.platforms[platform]?.aily_agent_id;
   }
 
-  setPlatformToken(platform: string, token: string): void {
+  setAilyAgentId(platform: string, agentId: string): void {
     if (!this.config.platforms[platform]) {
       this.config.platforms[platform] = { enabled: true };
     }
-    const encrypted = encrypt(token, 'xiaji-default-key');
-    this.config.platforms[platform].token = encrypted;
+    this.config.platforms[platform].aily_agent_id = agentId;
     this.config.platforms[platform].enabled = true;
     this.save();
   }

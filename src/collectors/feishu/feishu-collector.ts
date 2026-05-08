@@ -1,10 +1,9 @@
 import { MemoryItem, PlatformSource } from '../../types/index.js';
 import { Logger } from '../../utils/logger.js';
+import { AilyService } from '../../aily/aily-service.js';
 
 export interface FeishuCollectorConfig {
-  appId: string;
-  appSecret: string;
-  tenantAccessToken?: string;
+  ailyAgentId: string;
 }
 
 interface FeishuDocItem {
@@ -31,10 +30,12 @@ interface FeishuCalendarItem {
 export class FeishuCollector {
   private logger: Logger;
   private config: FeishuCollectorConfig;
+  private ailyService: AilyService;
 
   constructor(logger: Logger, config: FeishuCollectorConfig) {
     this.logger = logger;
     this.config = config;
+    this.ailyService = new AilyService(logger);
   }
 
   async collectDocs(_since?: string): Promise<MemoryItem[]> {
@@ -125,28 +126,7 @@ export class FeishuCollector {
   }
 
   private async getAccessToken(): Promise<string> {
-    if (this.config.tenantAccessToken) return this.config.tenantAccessToken;
-    const url = 'https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal';
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        app_id: this.config.appId,
-        app_secret: this.config.appSecret,
-      }),
-    });
-    if (!response.ok) {
-      throw new Error(`Failed to get Feishu access token: ${response.status}`);
-    }
-    const data = await response.json() as {
-      code: number;
-      tenant_access_token: string;
-    };
-    if (data.code !== 0) {
-      throw new Error(`Feishu API error: code ${data.code}`);
-    }
-    this.config.tenantAccessToken = data.tenant_access_token;
-    return data.tenant_access_token;
+    return this.ailyService.getAccessToken({ agentId: this.config.ailyAgentId });
   }
 
   private async fetchDocs(token: string, _since?: string): Promise<FeishuDocItem[]> {

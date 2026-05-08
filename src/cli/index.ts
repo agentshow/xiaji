@@ -26,12 +26,11 @@ function createServices() {
   const config = new ConfigService(configPath, logger);
   const storagePath = config.getStoragePath();
   const storage = new StorageService(storagePath, logger);
-  const feishuToken = config.getPlatformToken('feishu');
+  const ailyAgentId = config.getAilyAgentId('feishu');
   let feishuCollector: FeishuCollector | null = null;
-  if (feishuToken) {
+  if (ailyAgentId) {
     feishuCollector = new FeishuCollector(logger, {
-      appId: config.get().platforms.feishu?.app_id || '',
-      appSecret: feishuToken,
+      ailyAgentId,
     });
   }
   const memoryService = new MemoryService(storage, config, logger, feishuCollector);
@@ -106,7 +105,7 @@ program
 program
   .command('config')
   .description('配置管理')
-  .argument('<action>', 'init | set | get | auth | reauth')
+  .argument('<action>', 'init | set | get | auth')
   .argument('[key]', '配置键')
   .argument('[value]', '配置值')
   .action((action, key, value) => {
@@ -120,6 +119,9 @@ program
         if (key === 'storage.path') {
           config.setStoragePath(value);
           console.log(`Storage path set to: ${value}`);
+        } else if (key === 'feishu.aily_agent_id') {
+          config.setAilyAgentId('feishu', value);
+          console.log(`Feishu Aily agent ID set to: ${value}`);
         } else {
           console.log(`Unknown config key: ${key}`);
         }
@@ -128,12 +130,14 @@ program
         console.log(JSON.stringify(config.get(), null, 2));
         break;
       case 'auth':
-        console.log(`To authorize ${key || 'a platform'}, visit the authorization URL in your browser.`);
-        console.log('After authorization, run: xj config set platforms.<name>.token <token>');
-        break;
-      case 'reauth':
-        console.log(`Re-authorizing ${key || 'platform'}...`);
-        console.log('Please re-authorize and update the token.');
+        console.log('虾记通过飞书智能体（Aily）接入飞书生态。');
+        console.log('');
+        console.log('接入步骤：');
+        console.log('  1. 在飞书中搜索「虾记」智能体');
+        console.log('  2. 点击添加，飞书智能体自动完成授权');
+        console.log('  3. 授权完成后，智能体会发送就绪消息');
+        console.log('');
+        console.log('无需手动配置 App ID、App Secret 或 OAuth 回调。');
         break;
       default:
         console.log(`Unknown action: ${action}`);

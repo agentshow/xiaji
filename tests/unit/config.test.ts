@@ -59,23 +59,23 @@ describe('ConfigService', () => {
     });
   });
 
-  describe('platform token management', () => {
-    it('should set and get platform token', () => {
+  describe('aily agent id management', () => {
+    it('should set and get aily agent id', () => {
       config.init();
-      config.setPlatformToken('feishu', 'test-token');
-      const token = config.getPlatformToken('feishu');
-      expect(token).toBe('test-token');
+      config.setAilyAgentId('feishu', 'agent_test_123');
+      const agentId = config.getAilyAgentId('feishu');
+      expect(agentId).toBe('agent_test_123');
     });
 
     it('should return undefined for non-existent platform', () => {
       config.init();
-      const token = config.getPlatformToken('non-existent');
-      expect(token).toBeUndefined();
+      const agentId = config.getAilyAgentId('non-existent');
+      expect(agentId).toBeUndefined();
     });
 
-    it('should enable platform when setting token', () => {
+    it('should enable platform when setting agent id', () => {
       config.init();
-      config.setPlatformToken('feishu', 'test-token');
+      config.setAilyAgentId('feishu', 'agent_test_123');
       expect(config.isPlatformEnabled('feishu')).toBe(true);
     });
   });
